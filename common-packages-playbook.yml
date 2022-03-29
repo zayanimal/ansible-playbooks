@@ -1,29 +1,22 @@
 ---
-- name: Install packages
+- name: Setup environment
   hosts: STAGING
   become: yes
 
   tasks:
-  - name: Install Net tools
-    apt: name=net-tools state=latest
-
-  - name: Install Storage tools
-    apt: name=ncdu state=latest
-
-  - name: Install ZSH command line
-    apt: name=zsh state=latest
-
-  - name: Install Wget util
-    apt: name=wget state=latest
-
-  - name: Install VIM editor
-    apt: name=vim state=latest
-
-  - name: Install NGINX Web Server
-    apt: name=nginx state=latest
+  - name: Install packages
+    apt:
+      pkg:
+      - net-tools
+      - ncdu
+      - zsh
+      - wget
+      - vim
+      - nginx
+      - docker
+      update_cache: yes
 
   - name: Start NGINX
-    service: name=nginx state=started
-
-  - name: Install Docker
-    apt: name=docker state=latest
+    service:
+      name: nginx
+      state: started
