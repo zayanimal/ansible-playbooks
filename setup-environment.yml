@@ -1,6 +1,6 @@
 ---
 - name: Setup environment
-  hosts: STAGING
+  hosts: "{{ target }}"
   become: yes
 
   tasks:
@@ -9,12 +9,21 @@
       pkg:
       - net-tools
       - ncdu
+      - htop
       - zsh
       - wget
       - vim
       - nginx
       - docker
+      - certbot
       update_cache: yes
+
+  - name: Setup cron for autoupdate letsencrypt
+    cron:
+      name: Autoupdate Let's Encrypt certificate
+      minute: "42"
+      hour: "0,12"
+      job: letsencrypt renew --post-hook "service nginx reload"
 
   - name: Start NGINX
     service:
