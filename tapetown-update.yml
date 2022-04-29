@@ -1,0 +1,37 @@
+---
+- name: Setup environment
+  hosts: "TAPETOWN"
+  become: yes
+
+  tasks:
+  - name: Install packages
+    apt:
+      pkg:
+      - net-tools
+      - ncdu
+      - htop
+      - zsh
+      - wget
+      - vim
+      - nginx
+      - docker
+      - certbot
+      update_cache: yes
+
+  - name: Let's encrypt certs update
+    shell: letsencrypt renew
+
+  - name: Fetch nginx configs from git
+    git:
+      repo: https://github.com/tapetown/website.git
+      dest: /usr/local/website
+      update: yes
+      version: main
+
+  - name: Replace nginx configuration
+    shell: cp /usr/local/website/tapetown.conf /etc/nginx/conf.d/
+
+  - name: Reload nginx
+    service:
+      name: nginx
+      state: reloaded
