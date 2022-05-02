@@ -1,25 +1,14 @@
 ---
 - name: Setup environment
   hosts: "TAPETOWN"
-  become: yes
+  become: true
 
   tasks:
   - name: Install packages
-    apt:
-      pkg:
-      - net-tools
-      - ncdu
-      - htop
-      - zsh
-      - wget
-      - vim
-      - nginx
-      - docker
-      - certbot
-      update_cache: yes
+    import_tasks: packages.yml
 
   - name: Let's encrypt certs update
-    shell: letsencrypt renew
+    import_tasks: letsencrypt.yml
 
   - name: Fetch nginx configs from git
     git:

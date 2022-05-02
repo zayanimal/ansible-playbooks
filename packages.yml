@@ -1,0 +1,14 @@
+---
+- name: Install packages
+  apt:
+    pkg:
+    - net-tools
+    - ncdu
+    - htop
+    - zsh
+    - wget
+    - vim
+    - nginx
+    - docker
+    - certbot
+    update_cache: yes

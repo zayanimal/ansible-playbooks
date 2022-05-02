@@ -1,29 +1,11 @@
 ---
 - name: Setup environment
   hosts: "{{ target }}"
-  become: yes
+  become: true
 
   tasks:
   - name: Install packages
-    apt:
-      pkg:
-      - net-tools
-      - ncdu
-      - htop
-      - zsh
-      - wget
-      - vim
-      - nginx
-      - docker
-      - certbot
-      update_cache: yes
-
-  - name: Setup cron for autoupdate letsencrypt
-    cron:
-      name: Autoupdate Let's Encrypt certificate
-      minute: "42"
-      hour: "0,12"
-      job: letsencrypt renew --post-hook "service nginx reload"
+    import_tasks: packages.yml
 
   - name: Start NGINX
     service:
