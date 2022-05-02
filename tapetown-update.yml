@@ -20,7 +20,10 @@
   - name: Replace nginx configuration
     shell: cp /usr/local/website/tapetown.conf /etc/nginx/conf.d/
 
-  - name: Reload nginx
+  - name: Kill nginx
+    shell: kill $(ps aux | grep '[n]ginx' | awk '{print $2}')
+
+  - name: Start nginx
     service:
       name: nginx
-      state: reloaded
+      state: started
