@@ -11,4 +11,5 @@
     - nginx
     - docker
     - certbot
+    - sshpass
     update_cache: yes
