@@ -1,5 +1,5 @@
 ---
-- name: Setup environment
+- name: Update
   hosts: "TAPETOWN"
   become: true
 
@@ -7,20 +7,17 @@
   - name: Install packages
     import_tasks: packages.yml
 
-  - name: Let's encrypt certs update
-    import_tasks: letsencrypt.yml
-
-  - name: Fetch nginx configs from git
+  - name: Fetch tapetown
     git:
       repo: https://github.com/tapetown/website.git
       dest: /usr/local/website
       update: yes
       version: main
 
-  - name: Replace nginx configuration
+  - name: Update nginx
     shell: cp /usr/local/website/tapetown.conf /etc/nginx/conf.d/
 
-  - name: Kill nginx
+  - name: Stop nginx
     shell: kill $(ps aux | grep '[n]ginx' | awk '{print $2}')
 
   - name: Start nginx
