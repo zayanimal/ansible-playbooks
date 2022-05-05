@@ -1,0 +1,12 @@
+---
+- name: Install packages
+  import_playbook: install_packages.yml
+
+- name: Fetch tapetown
+  import_playbook: fetch_tapetown.yml
+
+- name: Update nginx
+  import_playbook: update_nginx.yml
+
+- name: Update certs
+  import_playbook: update_certs.yml

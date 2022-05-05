@@ -1,0 +1,20 @@
+---
+- name: Install packages
+  hosts: "TAPETOWN"
+  become: true
+
+  tasks:
+  - name: Install packages
+    apt:
+      pkg:
+      - net-tools
+      - ncdu
+      - htop
+      - zsh
+      - wget
+      - vim
+      - nginx
+      - docker
+      - certbot
+      - sshpass
+      update_cache: yes

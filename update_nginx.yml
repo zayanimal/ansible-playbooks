@@ -1,19 +1,8 @@
----
-- name: Update
+- name: Update nginx
   hosts: "TAPETOWN"
   become: true
 
   tasks:
-  - name: Install packages
-    import_tasks: packages.yml
-
-  - name: Fetch tapetown
-    git:
-      repo: https://github.com/tapetown/website.git
-      dest: /usr/local/website
-      update: yes
-      version: main
-
   - name: Update nginx
     shell: cp /usr/local/website/tapetown.conf /etc/nginx/conf.d/
 

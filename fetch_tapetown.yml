@@ -1,0 +1,12 @@
+---
+- name: Fetch tapetown
+  hosts: "TAPETOWN"
+  become: true
+
+  tasks:
+  - name: Fetch tapetown
+    git:
+      repo: https://github.com/tapetown/website.git
+      dest: /usr/local/website
+      update: yes
+      version: main
